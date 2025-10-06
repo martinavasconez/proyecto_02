@@ -37,7 +37,6 @@ Se hicieron dos tablas de auditoría para ver el estado de carga de cada mes:
 [data_quality/green_audit.csv](data_quality/green_audit.csv)
 
 Como se puede observar, todos los meses fueron cargados sin ni un problema.
----
 
 ## Estrategia de backfill & idempotencia  
 1. **Bronze:**  
