@@ -1,0 +1,35 @@
+name: 'scheduler'
+version: '1.0.0'
+config-version: 2
+
+# Debe coincidir con la clave raíz en ~/.dbt/profiles.yml
+profile: 'scheduler'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+
+on-run-start:
+  - "create schema if not exists {{ target.database }}.SILVER"
+  - "create schema if not exists {{ target.database }}.GOLD"
+
+models:
+  scheduler:
+    +materialized: view
+
+    silver:
+      +schema: SILVER
+      +materialized: view
+
+    gold:
+      +schema: GOLD
+      +materialized: table
+

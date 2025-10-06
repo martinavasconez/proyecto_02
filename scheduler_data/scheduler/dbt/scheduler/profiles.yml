@@ -1,0 +1,13 @@
+scheduler:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: GNUKGWS-DZC91018          
+      user: MARTINA_SERVICE_USER       
+      password: martinaserviceuser      
+      role: ROLE_MARTINA_SERVICE                
+      database: NY_TAXI
+      warehouse: COMPUTE_WH
+      schema: SILVER
+      client_session_keep_alive: False

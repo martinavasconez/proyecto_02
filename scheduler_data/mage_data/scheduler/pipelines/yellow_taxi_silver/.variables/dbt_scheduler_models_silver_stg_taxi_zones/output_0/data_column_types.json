@@ -1,0 +1,1 @@
+{"LOCATIONID": "int64", "BOROUGH": "str", "ZONE": "str", "SERVICE_ZONE": "str"}

@@ -1,0 +1,1 @@
+{"VENDORID": "int64", "TPEP_PICKUP_DATETIME": "int64", "TPEP_DROPOFF_DATETIME": "int64", "PASSENGER_COUNT": "int64", "TRIP_DISTANCE": "Decimal", "FARE_AMOUNT": "Decimal", "TOTAL_AMOUNT": "Decimal", "YEAR": "int64", "MONTH": "int64"}

@@ -1,0 +1,285 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt: {}
+    dbt_profile_target: dev
+    dbt_project_name: dbt/scheduler
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: dbt/scheduler/models/silver/stg_taxi_zones.sql
+    file_source:
+      path: dbt/scheduler/models/silver/stg_taxi_zones.sql
+      project_path: dbt/scheduler
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/silver/stg_taxi_zones
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/scheduler/models/silver/stg_taxi_zones
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/silver/stg_taxi_trips.sql
+    file_source:
+      path: dbt/scheduler/models/silver/stg_taxi_trips.sql
+      project_path: dbt/scheduler
+    limit: 1000
+  downstream_blocks:
+  - dbt/scheduler/models/gold/dim_trip_type
+  - dbt/scheduler/models/gold/dim_rate_code
+  - dbt/scheduler/models/gold/dim_vendor
+  - dbt/scheduler/models/gold/dim_service_type
+  - dbt/scheduler/models/gold/dim_payment_type
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/silver/stg_taxi_trips
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_zones
+  uuid: dbt/scheduler/models/silver/stg_taxi_trips
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_date.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_date.sql
+      project_path: dbt/scheduler
+    limit: 1000
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_date
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/scheduler/models/gold/dim_date
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_payment_type.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_payment_type.sql
+      project_path: dbt/scheduler
+    limit: 1000
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_payment_type
+  retry_config: null
+  status: failed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  uuid: dbt/scheduler/models/gold/dim_payment_type
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_rate_code.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_rate_code.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_rate_code
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  uuid: dbt/scheduler/models/gold/dim_rate_code
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_service_type.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_service_type.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_service_type
+  retry_config: null
+  status: failed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  uuid: dbt/scheduler/models/gold/dim_service_type
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_time.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_time.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_time
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/scheduler/models/gold/dim_time
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_trip_type.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_trip_type.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_trip_type
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  uuid: dbt/scheduler/models/gold/dim_trip_type
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_vendor.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_vendor.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_vendor
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  uuid: dbt/scheduler/models/gold/dim_vendor
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/dim_zone.sql
+    file_source:
+      path: dbt/scheduler/models/gold/dim_zone.sql
+      project_path: dbt/scheduler
+  downstream_blocks:
+  - dbt/scheduler/models/gold/fct_trips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/dim_zone
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/scheduler/models/gold/dim_zone
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/scheduler
+    file_path: dbt/scheduler/models/gold/fct_trips.sql
+    file_source:
+      path: dbt/scheduler/models/gold/fct_trips.sql
+      project_path: dbt/scheduler
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/scheduler/models/gold/fct_trips
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/scheduler/models/gold/dim_trip_type
+  - dbt/scheduler/models/gold/dim_rate_code
+  - dbt/scheduler/models/gold/dim_vendor
+  - dbt/scheduler/models/gold/dim_service_type
+  - dbt/scheduler/models/gold/dim_payment_type
+  - dbt/scheduler/models/silver/stg_taxi_trips
+  - dbt/scheduler/models/gold/dim_date
+  - dbt/scheduler/models/gold/dim_time
+  - dbt/scheduler/models/gold/dim_zone
+  uuid: dbt/scheduler/models/gold/fct_trips
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2025-09-25 03:07:39.435071+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: modeling
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: modeling
+variables_dir: /home/src/mage_data/scheduler
+widgets: []

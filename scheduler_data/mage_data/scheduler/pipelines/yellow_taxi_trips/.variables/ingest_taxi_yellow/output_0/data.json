@@ -1,0 +1,1 @@
+{"audit": [{"service": "yellow", "year": 2015, "month": 1, "status": "fail", "row_count": 0, "error_message": "000904 (42000): SQL compilation error: error line 1 at position 86\ninvalid identifier '\"VendorID\"'", "run_id": "a1250004-1715-4375-ab2e-bd854a7609f9", "ingested_at_utc": "2025-09-24T01:49:50.136045"}]}

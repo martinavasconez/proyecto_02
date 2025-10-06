@@ -1,0 +1,215 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Dimensión de fechas con claves sustitutas y atributos de calendario."
+    columns:
+      - name: date_sk
+        description: "Clave sustituta única para cada fecha."
+        tests:
+          - unique
+          - not_null
+      - name: full_date
+        description: "Fecha completa (YYYY-MM-DD)."
+        tests:
+          - not_null
+      - name: year
+        description: "Año de la fecha."
+      - name: month
+        description: "Mes de la fecha."
+      - name: day
+        description: "Día del mes."
+      - name: day_of_week
+        description: "Número del día de la semana (0=domingo)."
+
+  - name: dim_zone
+    description: "Dimensión de zonas TLC con borough y nombre de zona."
+    columns:
+      - name: zone_sk
+        description: "Clave sustituta (usa el TLC LocationID)."
+        tests:
+          - unique
+          - not_null
+      - name: borough
+        description: "Borough de la zona (Manhattan, Brooklyn, etc.)."
+      - name: zone
+        description: "Nombre de la zona TLC."
+
+  - name: dim_vendor
+    description: "Dimensión de vendors del TLC."
+    columns:
+      - name: vendor_sk
+        description: "Clave sustituta de vendor."
+        tests:
+          - unique
+          - not_null
+      - name: vendor_id
+        description: "ID original del vendor."
+      - name: vendor_name
+        description: "Nombre legible del vendor."
+
+  - name: dim_rate_code
+    description: "Dimensión de códigos de tarifa."
+    columns:
+      - name: rate_code_sk
+        description: "Clave sustituta del rate code."
+        tests:
+          - unique
+          - not_null
+      - name: rate_code_id
+        description: "ID original del rate code."
+      - name: rate_code_desc
+        description: "Descripción legible del rate code."
+
+  - name: dim_payment_type
+    description: "Dimensión de tipos de pago."
+    columns:
+      - name: payment_type_sk
+        description: "Clave sustituta para el tipo de pago."
+        tests:
+          - unique
+          - not_null
+      - name: payment_type_desc
+        description: "Descripción del tipo de pago."
+
+  - name: dim_service_type
+    description: "Dimensión del tipo de servicio (yellow/green)."
+    columns:
+      - name: service_type_sk
+        description: "Clave sustituta para el tipo de servicio."
+        tests:
+          - unique
+          - not_null
+      - name: service_type
+        description: "Valor original del tipo de servicio (yellow/green)."
+
+  - name: dim_trip_type
+    description: "Dimensión del tipo de viaje (Street-hail, Dispatch, etc.)."
+    columns:
+      - name: trip_type_sk
+        description: "Clave sustituta para el tipo de viaje."
+        tests:
+          - unique
+          - not_null
+      - name: trip_type
+        description: "Valor original del trip type."
+      - name: trip_type_desc
+        description: "Descripción del tipo de viaje."
+
+  # ======================
+  # FACT TABLE
+  # ======================
+
+  - name: fct_trips
+    description: "Tabla de hechos con granularidad 1 fila = 1 viaje. Contiene llaves foráneas a dimensiones y métricas de negocio."
+    columns:
+      - name: trip_id
+        description: "Identificador único del viaje (hash)."
+        tests:
+          - unique
+          - not_null
+
+      - name: pickup_date_sk
+        description: "FK a dim_date (fecha de recogida)."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_sk
+
+      - name: dropoff_date_sk
+        description: "FK a dim_date (fecha de destino)."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_sk
+
+      - name: pu_zone_sk
+        description: "FK a dim_zone (zona de pickup)."
+        tests:
+          - relationships:
+              to: ref('dim_zone')
+              field: zone_sk
+
+      - name: do_zone_sk
+        description: "FK a dim_zone (zona de dropoff)."
+        tests:
+          - relationships:
+              to: ref('dim_zone')
+              field: zone_sk
+
+      - name: vendor_sk
+        description: "FK a dim_vendor."
+        tests:
+          - relationships:
+              to: ref('dim_vendor')
+              field: vendor_sk
+
+      - name: rate_code_sk
+        description: "FK a dim_rate_code."
+        tests:
+          - relationships:
+              to: ref('dim_rate_code')
+              field: rate_code_sk
+
+      - name: payment_type_sk
+        description: "FK a dim_payment_type."
+        tests:
+          - relationships:
+              to: ref('dim_payment_type')
+              field: payment_type_sk
+
+      - name: service_type_sk
+        description: "FK a dim_service_type."
+        tests:
+          - relationships:
+              to: ref('dim_service_type')
+              field: service_type_sk
+
+      - name: trip_type_sk
+        description: "FK a dim_trip_type."
+        tests:
+          - relationships:
+              to: ref('dim_trip_type')
+              field: trip_type_sk
+
+      - name: pickup_datetime
+        description: "Timestamp completo de recogida."
+        tests:
+          - not_null
+
+      - name: dropoff_datetime
+        description: "Timestamp completo de destino."
+
+      - name: pickup_year
+        description: "Año de recogida (desnormalizado)."
+      - name: pickup_month
+        description: "Mes de recogida (desnormalizado)."
+      - name: pickup_day
+        description: "Día de recogida (desnormalizado)."
+      - name: pickup_dow
+        description: "Día de la semana (0=domingo)."
+      - name: pickup_hour
+        description: "Hora de recogida (0-23)."
+
+      - name: passenger_count
+        description: "Número de pasajeros."
+      - name: fare_amount
+        description: "Tarifa base."
+      - name: tip_amount
+        description: "Propina."
+      - name: tolls_amount
+        description: "Peajes."
+      - name: extra
+        description: "Cargos extra."
+      - name: mta_tax
+        description: "Impuesto MTA."
+      - name: improvement_surcharge
+        description: "Recargo de mejora."
+      - name: congestion_surcharge
+        description: "Recargo por congestión."
+      - name: airport_fee
+        description: "Tarifa aeroportuaria."
+      - name: cbd_congestion_fee
+        description: "Tarifa CBD."
+      - name: tip_percentage
+        description: "Porcentaje de propina sobre fare_amount."

@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: stg_taxi_zones
+    description: "Dimensión de zonas de taxi de NYC con borough y zone."
+    columns:
+      - name: zone_id
+        description: "ID de zona según TLC."
+        tests:
+          - unique
+          - not_null
+      - name: borough
+        description: "Borough (Manhattan, Brooklyn, etc.)"
+      - name: zone
+        description: "Nombre de la zona TLC."
+
+  - name: stg_taxi_trips
+    description: "Tabla unificada de viajes Yellow y Green con calidad mínima y enriquecimiento de zonas."
+    columns:
+      - name: service_type
+        description: "Tipo de servicio (yellow o green)."
+        tests:
+          - accepted_values:
+              values: ['yellow','green']
+
+      - name: pickup_datetime
+        description: "Fecha y hora de recogida."
+        tests:
+          - not_null
+
+      - name: dropoff_datetime
+        description: "Fecha y hora de destino."
+        tests:
+          - not_null
+
+      - name: pu_location_id
+        description: "ID de la zona de recogida."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_taxi_zones')
+              field: zone_id
+
+      - name: do_location_id
+        description: "ID de la zona de destino."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_taxi_zones')
+              field: zone_id
+
+      - name: trip_distance
+        description: "Distancia recorrida en millas."
+        tests:
+          - not_null
+
+      - name: payment_type_desc
+        description: "Descripción legible del tipo de pago."

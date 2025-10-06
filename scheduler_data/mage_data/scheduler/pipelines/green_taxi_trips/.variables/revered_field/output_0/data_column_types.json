@@ -1,0 +1,1 @@
+{"trips": {"module": "pandas.core.frame", "name": "DataFrame", "type": "instance", "uuid": "pandas.core.frame.DataFrame", "hash": "0xffff10198160", "variable_type": "dataframe"}, "audit": {"module": "pandas.core.frame", "name": "DataFrame", "type": "instance", "uuid": "pandas.core.frame.DataFrame", "hash": "0xffff0fd155a0", "variable_type": "dataframe"}}

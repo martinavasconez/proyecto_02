@@ -1,0 +1,1 @@
+{"audit": [{"service": "yellow", "year": 2015, "month": 1, "status": "fail", "row_count": 0, "error_message": "001757 (42601): SQL compilation error:\nTable 'TRIPS' does not exist", "run_id": "ff1c8e0d-950d-4e1f-bd81-aade2f3e0892", "ingested_at_utc": "2025-09-24T01:20:04.485577"}]}

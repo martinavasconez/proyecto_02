@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: NY_TAXI
+    schema: RAW
+    tables:
+      - name: YELLOW_TAXIS
+        description: Datos crudos de Yellow Taxi cargados desde Parquet (Mage).
+        columns:
+          - name: TPEP_PICKUP_DATETIME
+            description: Hora de inicio del viaje (raw).
+            tests:
+              - not_null:
+                  severity: warn
+          - name: TPEP_DROPOFF_DATETIME
+            description: Hora de fin del viaje (raw).
+            tests:
+              - not_null:
+                  severity: warn
+      - name: GREEN_TAXIS
+        description: Datos crudos de Green Taxi cargados desde Parquet (Mage).
+        columns:
+          - name: LPEP_PICKUP_DATETIME
+            description: Hora de inicio del viaje (raw).
+            tests:
+              - not_null:
+                  severity: warn
+          - name: LPEP_DROPOFF_DATETIME
+            description: Hora de fin del viaje (raw).
+            tests:
+              - not_null:
+                  severity: warn
+      - name: TAXI_ZONES
+        description: Tabla de referencia oficial de zonas y boroughs de NYC.
+
