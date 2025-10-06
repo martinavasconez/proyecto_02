@@ -42,7 +42,7 @@ Como se puede observar, todos los meses fueron cargados sin ni un problema.
 ## Estrategia de backfill & idempotencia  
 1. **Bronze:**  
   Durante el proceso se identificó que el volumen total de datos superaba los 700 millones de registros, lo que generaba problemas de performance y timeouts al intentar cargas masivas de una sola vez. Después de varias pruebas se adoptó una estrategia de carga incremental en chunks, procesando cada mes de manera controlada y dividiendo archivos grandes en bloques de hasta 1 millón de filas para evitar errores de memoria o límites de Snowflake.
-  ### 🔹 Estrategia implementada
+  ### Estrategia implementada
 
 - **Ingesta mensual controlada:**  
   Cada archivo Parquet representa un mes de viajes para un servicio (`yellow` o `green`).  
